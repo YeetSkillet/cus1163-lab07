@@ -47,11 +47,14 @@ public class RoundRobinLab {
         int currentTime = 0;
 
         // TODO 1: Create ready queue and add all processes
-        Queue<Process> readyQueue = new LinkedList<>(processes);
-
+        ArrayList<Process> readyQueue = new ArrayList<>();
+        for (Process p : processes) {
+            readyQueue.add(p);
+        }
+        
         // TODO 2: Scheduling loop
         while (!readyQueue.isEmpty()) {
-            Process currentProcess = readyQueue.poll();
+        	Process currentProcess=readyQueue.remove(0);
             
             int executionTime = Math.min(timeQuantum, currentProcess.remainingTime);
             
@@ -60,7 +63,8 @@ public class RoundRobinLab {
             
             if (currentProcess.remainingTime > 0) {
                 readyQueue.add(currentProcess);
-            } else {
+            } 
+            else {
                 currentProcess.completionTime = currentTime;
             }
         }
